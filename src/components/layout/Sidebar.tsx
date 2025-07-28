@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '../.././../src/assets/air.svg'
+import { ThemeToggle } from '../ui/ThemeToggle';
 import {
   LayoutDashboard,
   User,
@@ -12,6 +14,7 @@ import {
   X,
   Zap
 } from 'lucide-react';
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -55,18 +58,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile, onClose }) =
 
       {/* Sidebar */}
       <aside className={`
-        fixed md:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
+        fixed md:static inset-y-0 left-0 z-50 w-64 bg-[#F9F9F9] dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
         transform transition-transform duration-300 ease-in-out
         ${isMobile ? (isOpen ? 'translate-x-0' : '-translate-x-full') : 'translate-x-0'}
         flex flex-col
       `}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#414FF4] rounded-lg flex items-center justify-center">
-              <Zap size={20} className="text-white" />
+            <div className="w-8 h-8  rounded-lg flex items-center justify-center">
+              {/* <Zap size={20} className="text-white" /> */}
+              <img src={Logo} alt="" />
             </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Sales</span>
+            <span className="text-xl font-bold text-secondary dark:text-white">Sales</span>
+          </div>
+          <div>
+            <ThemeToggle />
           </div>
           {isMobile && (
             <button
@@ -81,20 +89,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile, onClose }) =
         {/* Navigation */}
         <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
           <div className="mb-6">
-            <h3 className="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <h3 className="px-3 text-xs  text-secondary/60 dark:text-gray-400 uppercase tracking-wider">
               General Menu
             </h3>
-            <div className="mt-3 space-y-1">
+            <div className="mt-3 space-y-1 pl-2">
               {menuItems.map((item) => (
                 <div key={item.label}>
                   <Link
                     to={item.path}
                     onClick={isMobile ? onClose : undefined}
                     className={`
-                      group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200
+                      group flex items-center px-3 py-2 text-sm text-secondary rounded-lg transition-all duration-200
                       ${isActive(item.path)
-                        ? 'bg-[#414FF4] text-white shadow-sm'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
+                        ? 'bg-white shadow-md'
+                        : 'text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                       }
                     `}
                   >
@@ -120,9 +128,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile, onClose }) =
                             to={subPath}
                             onClick={isMobile ? onClose : undefined}
                             className={`
-                              block px-3 py-1 text-sm rounded-md transition-colors
+                              block px-3 py-1 text-sm rounded-sm transition-colors
                               ${isSubActive
-                                ? 'text-[#414FF4] font-medium'
+                                ? 'text-secondary font-medium'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}
                             `}
                           >
@@ -138,16 +146,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile, onClose }) =
           </div>
 
           <div>
-            <h3 className="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <h3 className="px-3 text-xs text-secondary/60 dark:text-gray-400 uppercase tracking-wider">
               Account
             </h3>
-            <div className="mt-3 space-y-1">
+            <div className="mt-3 space-y-1 pl-2">
               {accountItems.map((item) => (
                 <Link
                   key={item.label}
                   to={item.path}
                   onClick={isMobile ? onClose : undefined}
-                  className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-all duration-200"
+                  className="group flex items-center px-3 py-2 text-sm  text-secondary dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-all duration-200"
+
                 >
                   <item.icon size={18} className="mr-3 flex-shrink-0" />
                   {item.label}

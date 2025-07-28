@@ -21,8 +21,8 @@ export const Layout: React.FC = () => {
         {/* <Header 
           onMenuClick={toggleSidebar}
           onFilterClick={() => setIsFilterOpen(true)}
-        /> */}
-        
+        />
+         */}
         <main className="flex-1 overflow-auto relative">
           <Outlet /> 
           <FilterPanel 

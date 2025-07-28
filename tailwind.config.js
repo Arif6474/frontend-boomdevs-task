@@ -16,7 +16,9 @@ export default {
           700: '#2a36d4',
           800: '#2430a8',
           900: '#1f2a85',
-        }
+        },
+        secondary: '#2B3674'
+        
       },
       animation: {
         'slide-in-left': 'slideInLeft 0.3s ease-out',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Search, Bell,  Download, Menu, MoreHorizontal, Calendar } from 'lucide-react';
 import { Button } from '../common/Button';
-import { ThemeToggle } from '../ui/ThemeToggle';
+// import { ThemeToggle } from '../ui/ThemeToggle';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick, onFilterClick }) =>
           </div>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             
             <Button variant="ghost" size="sm" className="rounded-full w-8 h-8 p-0">
               <Search size={16} />
