@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Sidebar } from './Sidebar';
-// import { Header } from './Header';
+import { Outlet } from 'react-router-dom'; 
+
 import { FilterPanel } from '../ui/FilterPanel';
 import { useSidebar } from '../../hooks/useSidebar';
-import { Outlet } from 'react-router-dom'; 
+import Sidebar from './Sidebar/Sidebar';
 
 export const Layout: React.FC = () => {
   const { isOpen, isMobile, toggleSidebar, closeSidebar } = useSidebar();
