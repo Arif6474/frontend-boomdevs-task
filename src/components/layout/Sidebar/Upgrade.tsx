@@ -1,11 +1,11 @@
-import { Zap } from 'lucide-react'
+import upgrade from "../../../assets/upgrade.svg"
 
 function Upgrade() {
     return (
-        <div className="p-4 m-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border border-blue-100 dark:border-gray-600">
+        <div className="p-2 m-4 bg-white dark:bg-gray-800 dark:to-gray-700 rounded-xl border border-blue-100 dark:border-gray-600">
             <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 bg-[#414FF4] rounded-lg flex items-center justify-center">
-                    <Zap size={16} className="text-white" />
+                <div className="w-10 h-10  rounded-lg flex items-center justify-center">
+                    <img src={upgrade} alt="" />
                 </div>
                 <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white text-sm">Activate Super</h4>

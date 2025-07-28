@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { menuItems } from '../../../config/sidebarItems';
 
@@ -9,8 +9,14 @@ interface SidebarMenuProps {
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ isMobile, onClose }) => {
   const location = useLocation();
+  
+  const [openSubItem, setOpenSubItem] = useState<string | null>(null);
 
   const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/');
+
+  const toggleSubItem = (label: string) => {
+    setOpenSubItem(openSubItem === label ? null : label);
+  };
 
   return (
     <div>
@@ -22,7 +28,14 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isMobile, onClose }) => {
           <div key={item.label}>
             <Link
               to={item.path}
-              onClick={isMobile ? onClose : undefined}
+              onClick={() => {
+                if (isMobile) {
+                  onClose();
+                }
+                if (item.subItems) {
+                  toggleSubItem(item.label);
+                }
+              }}  
               className={`
                 group flex items-center px-3 py-2 text-sm text-secondary rounded-lg transition-all duration-200
                 ${isActive(item.path)
@@ -38,17 +51,21 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isMobile, onClose }) => {
                 </span>
               )}
             </Link>
-            
+
             {/* Sub Items */}
             {item.subItems && item.subItems.length > 0 && (
-              <div className="ml-5 mt-1 space-y-1 pl-4">
+              <div
+                className={`ml-5 mt-1 space-y-1 pl-4 transition-all duration-300 ease-in-out
+                ${openSubItem === item.label ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}
+                `}
+              >
                 {item.subItems.map((subItem) => {
                   const subPath = `${item.path}/${subItem.toLowerCase()}`;
                   const isSubActive = location.pathname === subPath;
 
                   return (
                     <div key={subItem} className="flex items-center space-x-2">
-                      <div className={`border-l-2 border-secondary/25 dark:border-gray-700 pl-3${isSubActive ? ' border-secondary' : ''}`} >
+                      <div className={`border-l-2 pl-3 ${isSubActive ? 'border-secondary dark:border-white' : 'dark:border-gray-700'}`}>
                         <Link
                           to={subPath}
                           onClick={isMobile ? onClose : undefined}

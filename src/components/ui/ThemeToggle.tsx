@@ -11,7 +11,7 @@ export const ThemeToggle: React.FC = () => {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="rounded-full w-10 h-10 p-0 bg-white shadow-sm"
+      className="rounded-full w-10 h-10 p-0 bg-white shadow-sm "
     >
       {theme === 'light' ? (
         <Sun size={24} className='text-secondary' />
