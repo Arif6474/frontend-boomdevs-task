@@ -7,8 +7,28 @@ import { FilterPanel } from '../../components/ui/FilterPanel';
 import { Button } from '../../components/common/Button';
 import { statsData, chartData, productsData } from '../../utils/constants';
 import { DateRangeSelector } from './DateRangeSelector';
+import useMonthlyData from './utils/useMonthlyData';
+
+const formatDate = (date: string): string => {
+  const formattedDate = new Date(date);
+  const year = formattedDate.getFullYear();
+  const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+  const day = String(formattedDate.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
 
 export default function Overview() {
+
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const formatedStartDate = startDate ? formatDate(startDate) : '';
+  const formatedEndDate = endDate ? formatDate(endDate) : '';
+
+  const { data, loading, error } = useMonthlyData(formatedStartDate, formatedEndDate);
+  console.log('Monthly Data:', data, 'Loading:', loading, 'Error:', error);
+
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -16,14 +36,41 @@ export default function Overview() {
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
   return (
     <div className="p-6 space-y-6">
-      <DateRangeSelector />
+      <DateRangeSelector startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        {statsData.map((stat, index) => (
-          <StatsCard key={index} data={stat} />
-        ))}
+        <StatsCard
+          title='Monthly Earnings'
+          value={data?.currentEarnings}
+          percentageChange={data?.previousMonthComparison?.earningsPercentageChange}
+          beforeText='You earn extra'
+          difference={`You earn extra <span class="text-secondary dark:text-green-400">$${data?.previousMonthComparison?.earningsDifference}</span> this month`}
+          afterText='this month'
+        />
+        <StatsCard
+          title='Total Orders'
+          value={data?.currentOrders}
+          percentageChange={data?.previousMonthComparison.ordersPercentageChange}
+          difference={`You received ${data?.previousMonthComparison?.ordersDifference} more orders this month`}
+        />
+        <StatsCard
+          title='Total Sales'
+          value={data?.currentSales}
+          percentageChange={data?.previousMonthComparison.salesPercentageChange}
+          difference={`Sales revenue fell by $${data?.previousMonthComparison?.salesDifference} this month`}
+        />
+        <StatsCard
+          title='New Customers'
+          value={data?.currentCustomers}
+          percentageChange={data?.previousMonthComparison.customersPercentageChange}
+          difference={`Gained ${data?.previousMonthComparison?.customersDifference} new customers this month`}
+        />
+
+
+
       </div>
 
       {/* Charts Section */}

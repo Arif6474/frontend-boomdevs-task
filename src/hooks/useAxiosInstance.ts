@@ -1,16 +1,25 @@
+import axios, { AxiosInstance } from "axios";
+import { useMemo } from "react";
 
-import axios from "axios";
-import {  useMemo } from "react";
+interface ImportMetaEnv {
+  VITE_APP_BACKEND_URL: string;
+}
 
-function useAxiosInstance() {
+declare global {
+    interface ImportMeta {
+        readonly env: ImportMetaEnv; 
+    }
+}
 
-    const axiosAuthInstance = useMemo(() => axios.create({
+function useAxiosInstance(): AxiosInstance {
+  
+  const axiosAuthInstance = useMemo(() => {
+    return axios.create({
+      baseURL: `${import.meta.env.VITE_APP_BACKEND_URL}api/public/`,
+    });
+  }, []);
 
-        baseURL: import.meta.env.VITE_REACT_APP_BACKEND_URL + 'api/public/',
-       
-    }), [])
-
-    return axiosAuthInstance;
+  return axiosAuthInstance;
 }
 
 export default useAxiosInstance;

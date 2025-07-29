@@ -1,3 +1,24 @@
+
+export interface MonthlyData {
+  currentEarnings: number;
+  currentOrders: number;
+  currentSales: number;
+  currentCustomers: number;
+  previousMonthComparison: {
+    earningsDifference: number;
+    ordersDifference: number;
+    salesDifference: number;
+    customersDifference: number;
+    earningsPercentageChange: number;
+    ordersPercentageChange: number;
+    salesPercentageChange: number;
+    customersPercentageChange: number;
+  };
+}
+
+
+
+
 export interface User {
   name: string;
   email: string;
