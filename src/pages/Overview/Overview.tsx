@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Filter, Search } from 'lucide-react';
-import { StatsCard } from '../components/ui/StatsCard';
-import { Chart } from '../components/ui/Chart';
-import { ProductCard } from '../components/ui/ProductCard';
-import { FilterPanel } from '../components/ui/FilterPanel';
-import { Button } from '../components/common/Button';
-import { statsData, chartData, productsData } from '../utils/constants';
+import { StatsCard } from '../../components/ui/StatsCard';
+import { Chart } from '../../components/ui/Chart';
+import { ProductCard } from '../../components/ui/ProductCard';
+import { FilterPanel } from '../../components/ui/FilterPanel';
+import { Button } from '../../components/common/Button';
+import { statsData, chartData, productsData } from '../../utils/constants';
+import { DateRangeSelector } from './DateRangeSelector';
 
 export default function Overview() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function Overview() {
 
   return (
     <div className="p-6 space-y-6">
+      <DateRangeSelector />
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {statsData.map((stat, index) => (
@@ -29,7 +31,7 @@ export default function Overview() {
         <div className="xl:col-span-2">
           <Chart data={chartData} />
         </div>
-        
+
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -44,7 +46,7 @@ export default function Overview() {
               <option>Order</option>
             </select>
           </div>
-          
+
           <div className="space-y-4">
             {productsData.slice(0, 4).map((product, index) => (
               <div key={product.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
@@ -83,7 +85,7 @@ export default function Overview() {
               <select className="bg-transparent border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 text-sm text-gray-600 dark:text-gray-400">
                 <option>For sale</option>
               </select>
-              
+
               <div className="relative flex-1 lg:w-80">
                 <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -105,7 +107,7 @@ export default function Overview() {
               >
                 Filter
               </Button>
-              
+
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <span>1 - 8 of 8 Results</span>
                 <select className="bg-transparent border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-sm">
