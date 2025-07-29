@@ -47,7 +47,7 @@ export default function Overview() {
           value={data?.currentEarnings}
           percentageChange={data?.previousMonthComparison?.earningsPercentageChange}
           beforeText='You earn extra'
-          difference={`You earn extra <span class="text-secondary dark:text-green-400">$${data?.previousMonthComparison?.earningsDifference}</span> this month`}
+          difference={data?.previousMonthComparison?.earningsDifference}
           afterText='this month'
         />
         <StatsCard
