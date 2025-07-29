@@ -1,6 +1,7 @@
 import React from 'react';
 import { DollarSign, ShoppingBag, TrendingUp, Users, TrendingDown } from 'lucide-react';
 import { StatCard as StatCardType } from '../../types';
+import dotsThree from '../../assets/dotsThree.svg';
 
 interface StatsCardProps {
   data: StatCardType;
@@ -23,9 +24,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({ data }) => {
           <Icon size={20} className="text-gray-600 dark:text-gray-400" />
         </div>
         <div className="text-right">
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-            {data.isPositive ? '↗' : '↘'}
-          </div>
+            <img src={dotsThree} alt="" />
         </div>
       </div>
       
