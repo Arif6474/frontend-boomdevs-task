@@ -73,7 +73,7 @@ function StoreProducts({
             <Button
               variant="secondary"
               size="sm"
-              className="bg-[#2B3674] dark:bg-gray-500 py-3 hover:bg-[#303c7f] dark:hover:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors"
+              className="!bg-[#2B3674] dark:bg-gray-500 py-3 hover:bg-[#303c7f] dark:hover:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors"
               onClick={() => setIsFilterOpen((prev) => !prev)}
             >
               <span className="text-secondary">

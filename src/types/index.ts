@@ -37,9 +37,9 @@ export interface StatCard {
 export interface Product {
   _id: string;
   name: string;
-  salePrice: string;
+  salePrice: number;
   image?: string;
-  isFeatured: boolean;
+  isFeatured?: boolean;
 }
 
 export interface ChartData {
