@@ -57,7 +57,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({ icon, percentageChange, va
 
       </div>
 
-      <p className="text-[12px] text-secondary dark:text-white bg-gray-100 dark:bg-gray-600 p-2 rounded-b-xl min-h-14">
+      <p className="text-[13px] text-secondary dark:text-white bg-gray-100 dark:bg-gray-600 p-2 rounded-b-xl min-h-14">
         {beforeText} <span className="font-bold ">{difference}</span> {afterText}
       </p>
     </div>

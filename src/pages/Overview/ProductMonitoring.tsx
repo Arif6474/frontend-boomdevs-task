@@ -22,7 +22,7 @@ export default function ProductMonitoring({ startDate, endDate }: ProductMonitor
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h3 className="flex items-center gap-1 text-lg font-semibold text-secondary/90 dark:text-white mb-1">
+                    <h3 className="flex items-center gap-1 text-lg font-semibold text-secondary/80 dark:text-white mb-1">
                         <ProductMonitoringIcon />
                         <p className="text-base"> Product Monitoring</p>
                     </h3>

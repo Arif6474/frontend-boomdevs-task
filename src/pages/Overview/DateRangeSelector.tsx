@@ -81,8 +81,8 @@ export function DateRangeSelector({ startDate, endDate, setStartDate, setEndDate
                 selected={startDate ? new Date(startDate) : null}
                 onChange={(dates: [Date | null, Date | null]) => {
                   const [start, end] = dates;
-                  setStartDate(start ? start.toISOString() : ''); // Save start date as string
-                  setEndDate(end ? end.toISOString() : ''); // Save end date as string
+                  setStartDate(start ? start.toISOString() : ''); 
+                  setEndDate(end ? end.toISOString() : ''); 
                 }}
                 startDate={startDate ? new Date(startDate) : null}
                 endDate={endDate ? new Date(endDate) : null}

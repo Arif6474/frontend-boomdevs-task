@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChartData } from '../../types';
+import { SaleAnylyticsIcon } from '../elements/icons';
 
 interface ChartProps {
   data: ChartData[];
@@ -13,23 +14,28 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-              Sale Analytics
+            <h3 className="flex items-center gap-1 text-lg font-semibold text-secondary/80 dark:text-white mb-1">
+              <SaleAnylyticsIcon />
+              <p className="text-base">  Sale Analytics</p>
             </h3>
+          </div>
+
+          <div className='flex items-center gap-4'>
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-[#414FF4] rounded-full"></div>
+                <div className="w-4 h-4 bg-[#B9CFF9] "></div>
                 <span className="text-gray-600 dark:text-gray-400">Refund</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-blue-300 rounded-full"></div>
+
+                <div className="w-4 h-4 bg-[#414FF4] "></div>
                 <span className="text-gray-600 dark:text-gray-400">Checkout</span>
               </div>
             </div>
+            <select className="text-sm bg-transparent border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-gray-600 dark:text-gray-400">
+              <option>This Month</option>
+            </select>
           </div>
-          <select className="text-sm bg-transparent border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-gray-600 dark:text-gray-400">
-            <option>This Month</option>
-          </select>
         </div>
 
         <div className="relative h-64">
@@ -48,10 +54,10 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
               const refundHeight = (item.refund / maxValue) * 100;
 
               return (
-                <div key={item.month} className="flex flex-col items-center gap-2 flex-1">
+                <div key={item.month} className="flex flex-col items-center gap-2 flex-1 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-end gap-1 h-48">
                     <div
-                      className="bg-[#414FF4] rounded-t w-4 relative group cursor-pointer transition-all duration-200 hover:bg-[#3542E8]"
+                      className="bg-[#414FF4] rounded-full w-6 relative group cursor-pointer transition-all duration-200 hover:bg-[#3542E8]"
                       style={{ height: `${incomeHeight}%` }}
                     >
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -59,7 +65,7 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
                       </div>
                     </div>
                     <div
-                      className="bg-blue-300 rounded-t w-4 relative group cursor-pointer transition-all duration-200 hover:bg-blue-400"
+                      className="bg-[#B9CFF9] rounded-full w-6 relative group cursor-pointer transition-all duration-200 hover:bg-blue-400"
                       style={{ height: `${refundHeight}%` }}
                     >
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -73,11 +79,6 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
                 </div>
               );
             })}
-          </div>
-
-          <div className="absolute top-16 right-4 bg-gray-900 dark:bg-gray-700 text-white text-xs px-3 py-2 rounded-lg">
-            <div className="text-gray-300 mb-1">Income</div>
-            <div className="font-semibold">$108,906</div>
           </div>
         </div>
       </div>
