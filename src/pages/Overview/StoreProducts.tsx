@@ -14,23 +14,23 @@ function StoreProducts({ isFilterOpen, setIsFilterOpen, searchQuery, setSearchQu
                             <option>For sale</option>
                         </select>
 
-                        <div className="relative flex-1 lg:w-80">
-                            <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                            <input
-                                type="text"
-                                placeholder="Search Shop"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#414FF4]"
-                            />
-                        </div>
+                    </div>
+                    <div className="relative flex-1 lg:w-80">
+                        <Search size={16} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Search Shop"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-2 pr-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#414FF4]"
+                        />
                     </div>
 
                     <div className="flex items-center gap-3">
                         <Button
                             variant="secondary"
                             size="sm"
-                            className='bg-[#2B3674] py-3'
+                            className='bg-[#2B3674] dark:bg-gray-500 py-3 hover:bg-[#303c7f] dark:hover:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors'
 
                             onClick={() => setIsFilterOpen(true)}
                         >
