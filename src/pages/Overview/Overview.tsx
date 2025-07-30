@@ -25,10 +25,6 @@ export default function Overview() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredProducts = productsData.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
 
   return (
     <div className="p-6 space-y-6">
