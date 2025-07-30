@@ -22,8 +22,8 @@ export const StatsCard: React.FC<StatsCardProps> = ({ icon, percentageChange, va
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-200 hover:shadow-md">
       <div className="flex items-center justify-between mb-4">
-        <div className='flex items-center gap-2'>
-          <div className=" bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <div className='flex items-center gap-1'>
+          <div className=" bg-gray-50 p-1 rounded-lg dark:text-white">
             {icon}
           </div>
           <h3 className="text-sm font-medium text-secondary dark:text-gray-400">

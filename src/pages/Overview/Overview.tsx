@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Filter, Search } from 'lucide-react';
-import { CircleDollarSign, TotalCustomerSign, TotalOrderSing, TotalSaleSign } from '../../components/elements/icons';
-import { StatsCard } from '../../components/ui/StatsCard';
 import { Chart } from '../../components/ui/Chart';
 import { ProductCard } from '../../components/ui/ProductCard';
 import { FilterPanel } from '../../components/ui/FilterPanel';
@@ -10,15 +8,9 @@ import { chartData, productsData } from '../../utils/constants';
 import { DateRangeSelector } from './DateRangeSelector';
 import useMonthlyData from './utils/useMonthlyData';
 import ProductMonitoring from './ProductMonitoring';
+import Stats from './Stats';
+import { formatDate } from '../../utils/helperFunc';
 
-const formatDate = (date: string): string => {
-  const formattedDate = new Date(date);
-  const year = formattedDate.getFullYear();
-  const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
-  const day = String(formattedDate.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-};
 
 export default function Overview() {
 
@@ -28,8 +20,6 @@ export default function Overview() {
   const formatedEndDate = endDate ? formatDate(endDate) : '';
 
   const { data, loading, error } = useMonthlyData(formatedStartDate, formatedEndDate);
-  console.log('Monthly Data:', data, 'Loading:', loading, 'Error:', error);
-
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,72 +32,10 @@ export default function Overview() {
   return (
     <div className="p-6 space-y-6">
       <DateRangeSelector startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <StatsCard
-          icon={<CircleDollarSign />}
-          title='Monthly Earnings'
-          value={data?.currentEarnings ? `$${data?.currentEarnings}` : '$0'}
-          percentageChange={data?.previousMonthComparison?.earningsPercentageChange}
-          beforeText={`Earnings ${data?.previousMonthComparison?.earningsPercentageChange > 0 ? 'increased' : 'decreased'} by`}
-          difference={`$${data?.previousMonthComparison?.earningsDifference ? data?.previousMonthComparison?.earningsDifference : 0}`}
-          afterText='this month'
-        />
-        <StatsCard
-          icon={<TotalOrderSing />}
-          title='Total Orders'
-          value={data?.currentOrders ? data?.currentOrders : 0}
-          percentageChange={data?.previousMonthComparison.ordersPercentageChange}
-          beforeText={`Orders ${data?.previousMonthComparison?.ordersPercentageChange > 0 ? 'increased' : 'decreased'} by `}
-          difference={data?.previousMonthComparison?.ordersDifference ? data?.previousMonthComparison?.ordersDifference : 0}
-          afterText='more orders this month'
-        />
-        <StatsCard
-          icon={<TotalSaleSign />}
-          title='Total Sales'
-          value={data?.currentSales ? `$${data?.currentSales}` : '$0'}
-          percentageChange={data?.previousMonthComparison.salesPercentageChange}
-          beforeText={`Sales revenue ${data?.previousMonthComparison?.salesPercentageChange > 0 ? 'increased' : 'decreased'} by`}
-          difference={`$${data?.previousMonthComparison?.salesDifference ? data?.previousMonthComparison?.salesDifference : 0}`}
-          afterText='this month'
-        />
-        <StatsCard
-          icon={<TotalCustomerSign />}
-          title='New Customers'
-          value={data?.currentCustomers ? data?.currentCustomers : 0}
-          percentageChange={data?.previousMonthComparison.customersPercentageChange}
-          beforeText='Gained'
-          difference={data?.previousMonthComparison?.ordersDifference}
-          afterText='new customers this month'
-        />
-
-
-
-      </div>
-
-      {/* Charts Section */}
+      <Stats data={data} />
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-2">
-          <Chart data={chartData} />
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                Product Monitoring
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Popular Product
-              </p>
-            </div>
-            <select className="text-sm bg-transparent border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-gray-600 dark:text-gray-400">
-              <option>Order</option>
-            </select>
-          </div>
-
-          <ProductMonitoring startDate={formatedStartDate} endDate={formatedEndDate} />
-        </div>
+        <Chart data={chartData} />
+        <ProductMonitoring startDate={formatedStartDate} endDate={formatedEndDate} />
       </div>
 
       {/* Products Section */}

@@ -1,6 +1,6 @@
 export const CircleDollarSign = () => {
     return (
-        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" >
             <g clip-path="url(#clip0_1_205)">
                 <path d="M8.96735 8.96094H7.7179C7.5264 8.96106 7.34092 9.0278 7.19329 9.14974C7.04567 9.27167 6.945 9.44117 6.90868 9.62917C6.87236 9.81718 6.9026 10.012 6.99417 10.1801C7.08574 10.3483 7.233 10.4794 7.41061 10.5509L8.67911 11.0585C8.85673 11.13 9.00398 11.2611 9.09555 11.4292C9.18713 11.5974 9.21736 11.7922 9.18104 11.9802C9.14472 12.1682 9.04405 12.3377 8.89643 12.4596C8.7488 12.5816 8.56332 12.6483 8.37182 12.6484H7.1236" stroke="#2B3674" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M8.04547 8.96094V8.5" stroke="#2B3674" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
