@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartData } from '../../types';
-import { SaleAnylyticsIcon } from '../elements/icons';
+import { SaleAnylyticsIcon } from '../../components/elements/icons';
 
 interface ChartProps {
   data: ChartData[];
@@ -16,19 +16,18 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
           <div>
             <h3 className="flex items-center gap-1 text-lg font-semibold text-secondary/80 dark:text-white mb-1">
               <SaleAnylyticsIcon />
-              <p className="text-base">  Sale Analytics</p>
+              <p className="text-base"> Sale Analytics</p>
             </h3>
           </div>
 
-          <div className='flex items-center gap-4'>
+          <div className="flex items-center gap-4">
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#B9CFF9] "></div>
+                <div className="w-4 h-4 bg-[#B9CFF9]"></div>
                 <span className="text-gray-600 dark:text-gray-400">Refund</span>
               </div>
               <div className="flex items-center gap-2">
-
-                <div className="w-4 h-4 bg-[#414FF4] "></div>
+                <div className="w-4 h-4 bg-[#414FF4]"></div>
                 <span className="text-gray-600 dark:text-gray-400">Checkout</span>
               </div>
             </div>
@@ -39,7 +38,8 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
         </div>
 
         <div className="relative h-64">
-          <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-400 dark:text-gray-500">
+          {/* Y-axis labels */}
+          <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-400 dark:text-gray-500 z-10">
             <span>3.5k</span>
             <span>2k</span>
             <span>1.5k</span>
@@ -48,8 +48,21 @@ export const Chart: React.FC<ChartProps> = ({ data }) => {
             <span>0</span>
           </div>
 
+          {/* Dotted grid background */}
+          <div className="absolute inset-0 left-8 z-0">
+            <div className="h-full flex flex-col justify-between">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="border-t border-dashed border-gray-300 dark:border-gray-600 w-full"
+                ></div>
+              ))}
+            </div>
+          </div>
+
+          {/* Chart bars */}
           <div className="ml-8 h-full flex items-end justify-between gap-4">
-            {data.map((item, index) => {
+            {data.map((item) => {
               const incomeHeight = (item.income / maxValue) * 100;
               const refundHeight = (item.refund / maxValue) * 100;
 

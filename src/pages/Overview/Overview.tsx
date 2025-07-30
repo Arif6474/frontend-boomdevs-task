@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Filter, Search } from 'lucide-react';
-import { Chart } from '../../components/ui/Chart';
 import { ProductCard } from '../../components/ui/ProductCard';
 import { FilterPanel } from '../../components/ui/FilterPanel';
 import { Button } from '../../components/common/Button';
@@ -10,6 +9,7 @@ import useMonthlyData from './utils/useMonthlyData';
 import ProductMonitoring from './ProductMonitoring';
 import Stats from './Stats';
 import { formatDate } from '../../utils/helperFunc';
+import { Chart } from './Chart';
 
 
 export default function Overview() {

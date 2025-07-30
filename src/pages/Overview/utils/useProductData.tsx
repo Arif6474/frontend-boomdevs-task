@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // Import your custom hook
+import { useState, useEffect } from 'react'; 
 import useAxiosInstance from '../../../hooks/useAxiosInstance';
 import { TOP_PRODUCTS_BY_ORDER_API } from '../../../utils/APIs';
 import { MonthlyData } from '../../../types';
@@ -23,7 +23,7 @@ const useProductData = (startDate: string, endDate: string): UseProductDataResul
 
       try {
         const response = await axiosInstance.get(`${TOP_PRODUCTS_BY_ORDER_API}${startDate}/${endDate}`);
-        setData(response.data.data);  // Assuming the API returns data in this structure
+        setData(response.data.data);  
       } catch (error: any) {
         setError(error.response ? error.response.data.message : 'Error fetching data');
       } finally {
