@@ -105,7 +105,7 @@ function StoreProducts({
                 </div>
             </div>
 
-            <div className="p-6 flex flex-col lg:flex-row gap-6">
+            <div className="p-6 flex flex-col justify-center lg:flex-row gap-6">
                 <div className='flex-1 sticky top-10 self-start max-w-md'>
                     <ShopMap shops={shops} />
                 </div>
