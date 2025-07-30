@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from '../../types';
+import { MapPin } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -7,34 +8,29 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-200 hover:shadow-md group">
-      {product.featured && (
-        <div className="absolute top-3 right-3 z-10">
-          <span className="bg-[#414FF4] text-white text-xs px-2 py-1 rounded-full font-medium flex items-center gap-1">
-            FEATURED
-            <div className="w-1 h-1 bg-white rounded-full"></div>
-          </span>
+    <div className="relative rounded-xl overflow-hidden shadow-md group transition-all duration-200">
+      {/* Featured badge */}
+      {product.isFeatured && (
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 px-3 py-1 text-xs font-medium text-white bg-secondary rounded-full">
+          FEATURED
+          <MapPin size={12} />
         </div>
       )}
-      
-      <div className="aspect-square overflow-hidden">
+
+      {/* Product image */}
+      <div className="aspect-square overflow-hidden w-full h-[300px]">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full  transition-transform duration-300 group-hover:scale-105"
         />
       </div>
-      
-      <div className="p-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-          {product.name}
-        </h3>
-        <p className="text-xl font-bold text-gray-900 dark:text-white">
-          {product.price}
-        </p>
+
+      {/* Glass effect bottom info */}
+      <div className="absolute bottom-0 w-full bg-secondary/50 text-white p-4">
+        <h3 className="text-sm font-medium">{product.name}</h3>
+        <p className="text-lg font-bold">${product.salePrice.toLocaleString()}</p>
       </div>
-      
-      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-200 rounded-xl"></div>
     </div>
   );
 };

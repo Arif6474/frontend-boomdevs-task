@@ -37,7 +37,7 @@ function Stats({ data } : { data: any }) {
                 value={data?.currentCustomers ? data?.currentCustomers : 0}
                 percentageChange={data?.previousMonthComparison.customersPercentageChange}
                 beforeText='Gained'
-                difference={data?.previousMonthComparison?.ordersDifference}
+                difference={data?.previousMonthComparison?.customersDifference}
                 afterText='new customers this month'
             />
 

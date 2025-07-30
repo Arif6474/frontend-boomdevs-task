@@ -14,7 +14,7 @@ import { getCurrentMonthDateRange } from './utils/getCurrentMonthDataRange';
 export default function Overview() {
 
   const { startDate: defaultStart, endDate: defaultEnd } = getCurrentMonthDateRange();
-  
+
   const [startDate, setStartDate] = useState<string>(defaultStart);
   const [endDate, setEndDate] = useState<string>(defaultEnd);
   const formatedStartDate = startDate ? formatDate(startDate) : '';
@@ -43,7 +43,6 @@ export default function Overview() {
         setIsFilterOpen={setIsFilterOpen}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        filteredProducts={filteredProducts}
       />
     </div>
   );

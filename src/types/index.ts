@@ -35,12 +35,11 @@ export interface StatCard {
 }
 
 export interface Product {
-  id: string;
+  _id: string;
   name: string;
-  price: string;
-  image: string;
-  featured: boolean;
-  orders: number;
+  salePrice: string;
+  image?: string;
+  isFeatured: boolean;
 }
 
 export interface ChartData {

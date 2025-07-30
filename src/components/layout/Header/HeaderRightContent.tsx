@@ -2,6 +2,7 @@ import { Search, ChevronDown, } from "lucide-react";
 import searchIcon from '../../../assets/searchIcon.svg';
 import notificationIcon from '../../../assets/notificationIcon.svg';
 import filterIcon from '../../../assets/filterIcon.svg';
+import profile from '../../../assets/profile.png';
 
 function HeaderRightContent({ isSearchVisible, toggleSearchVisibility }: { isSearchVisible: boolean, toggleSearchVisibility: () => void }) {
     return (
@@ -35,9 +36,12 @@ function HeaderRightContent({ isSearchVisible, toggleSearchVisibility }: { isSea
                 <div className=" md:hidden w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                     <span className="text-sm font-medium text-gray-900 dark:text-white">AM</span>
                 </div>
-                <div className="hidden md:block">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">Amirul Mu'</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-300">amirul@gmail.example</p>
+                <div className=" hidden md:flex gap-2 items-center">
+                    <img src={profile} alt="" />
+                    <div>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">Amirul Mu'</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-300">amirul@gmail.example</p>
+                    </div>
                 </div>
                 <ChevronDown className="text-gray-600 dark:text-gray-300 w-4 h-4" />
             </div>

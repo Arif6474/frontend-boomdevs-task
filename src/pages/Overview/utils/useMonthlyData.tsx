@@ -4,23 +4,6 @@ import { REPORTS_API } from '../../../utils/APIs';
 import { MonthlyData } from '../../../types';
 
 
-// interface MonthlyData {
-//   currentEarnings: number;
-//   currentOrders: number;
-//   currentSales: number;
-//   currentCustomers: number;
-//   previousMonthComparison: {
-//     earningsDifference: number;
-//     ordersDifference: number;
-//     salesDifference: number;
-//     customersDifference: number;
-//     earningsPercentageChange: number;
-//     ordersPercentageChange: number;
-//     salesPercentageChange: number;
-//     customersPercentageChange: number;
-//   };
-// }
-
 interface UseMonthlyDataResult {
   data: MonthlyData | null;
   loading: boolean;

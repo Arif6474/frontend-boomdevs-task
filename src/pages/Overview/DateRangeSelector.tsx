@@ -60,7 +60,9 @@ export function DateRangeSelector({
             className="flex items-center gap-2 px-4 py-2 border rounded-md text-secondary hover:text-blue-800 dark:text-white"
           >
             <Calendar className="w-6 h-6 dark:text-gray-300" />
-            <span>Month</span>
+            <span>{new Date(startDate).toLocaleDateString('en-GB', {
+                  month: 'long',
+                })}</span>
             <ChevronDown className="w-6 h-6 dark:text-gray-300" />
           </button>
 
