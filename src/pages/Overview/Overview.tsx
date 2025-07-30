@@ -1,6 +1,4 @@
 import { useState } from 'react';
-
-import { chartData, productsData } from '../../utils/constants';
 import { DateRangeSelector } from './DateRangeSelector';
 import useMonthlyData from './utils/useMonthlyData';
 import ProductMonitoring from './ProductMonitoring';
@@ -31,7 +29,7 @@ export default function Overview() {
       <DateRangeSelector startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
       <Stats data={data} />
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <Chart data={chartData} />
+        <Chart />
         <ProductMonitoring startDate={formatedStartDate} endDate={formatedEndDate} />
       </div>
       <StoreProducts

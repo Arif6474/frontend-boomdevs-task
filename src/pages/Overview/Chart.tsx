@@ -1,98 +1,120 @@
-import React from 'react';
-import { ChartData } from '../../types';
+import React, { useState } from 'react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts';
 import { SaleAnylyticsIcon } from '../../components/elements/icons';
+import { MonthSelector } from './MonthSelector';
+import useChartData from './utils/useChartData';
 
-interface ChartProps {
-  data: ChartData[];
-}
+const formatAmount = (value: number): string => {
+  if (value >= 1e7) return (value / 1e7).toFixed(1).replace(/\.0$/, '') + 'cr';
+  if (value >= 1e5) return (value / 1e5).toFixed(1).replace(/\.0$/, '') + 'l';
+  if (value >= 1e3) return (value / 1e3).toFixed(1).replace(/\.0$/, '') + 'k';
+  return value.toString();
+};
 
-export const Chart: React.FC<ChartProps> = ({ data }) => {
-  const maxValue = Math.max(...data.map(d => Math.max(d.income, d.refund)));
+const getYTicks = (max: number): number[] => {
+  const step = Math.ceil(max / 5);
+  return Array.from({ length: 6 }, (_, i) => i * step);
+};
+
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    const checkout = payload.find((p: any) => p.dataKey === 'totalCheckout');
+    const refund = payload.find((p: any) => p.dataKey === 'totalRefunded');
+
+    return (
+      <div className="rounded-md px-3 py-2 shadow-md bg-white text-xs text-gray-900 space-y-1">
+        {checkout?.value !== 0 && (
+          <p>
+            <strong>Checkout:</strong> ${checkout.value.toLocaleString()}
+          </p>
+        )}
+        {refund?.value !== 0 && (
+          <p>
+            <strong>Refund:</strong> ${refund.value.toLocaleString()}
+          </p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
+
+export const Chart: React.FC = () => {
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
+  const { data } = useChartData(year, month);
+
+  const handleMonthSelect = (y: number, m: number) => {
+    setYear(y);
+    setMonth(m);
+  };
+
+  const chartData = data?.chartData ?? [];
+  const maxValue = data?.maxValue ?? 0;
+  const yTicks = getYTicks(maxValue);
 
   return (
     <div className="xl:col-span-2">
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <div>
-            <h3 className="flex items-center gap-1 text-lg font-semibold text-secondary/80 dark:text-white mb-1">
-              <SaleAnylyticsIcon />
-              <p className="text-base"> Sale Analytics</p>
-            </h3>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#B9CFF9]"></div>
-                <span className="text-gray-600 dark:text-gray-400">Refund</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#414FF4]"></div>
-                <span className="text-gray-600 dark:text-gray-400">Checkout</span>
-              </div>
+          <h3 className="flex items-center gap-1 text-lg font-semibold text-secondary/80 dark:text-white mb-1">
+            <SaleAnylyticsIcon />
+            <p className="text-base"> Sale Analytics</p>
+          </h3>
+          <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#B9CFF9]"></div>
+              <span className="text-gray-600 dark:text-gray-400">Refund</span>
             </div>
-            <select className="text-sm bg-transparent border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-1 text-gray-600 dark:text-gray-400">
-              <option>This Month</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#414FF4]"></div>
+              <span className="text-gray-600 dark:text-gray-400">Checkout</span>
+            </div>
+          <MonthSelector onMonthYearSelect={handleMonthSelect} />
           </div>
         </div>
 
-        <div className="relative h-64">
-          {/* Y-axis labels */}
-          <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-400 dark:text-gray-500 z-10">
-            <span>3.5k</span>
-            <span>2k</span>
-            <span>1.5k</span>
-            <span>1k</span>
-            <span>500</span>
-            <span>0</span>
-          </div>
-
-          {/* Dotted grid background */}
-          <div className="absolute inset-0 left-8 z-0">
-            <div className="h-full flex flex-col justify-between">
-              {[...Array(6)].map((_, i) => (
-                <div
-                  key={i}
-                  className="border-t border-dashed border-gray-300 dark:border-gray-600 w-full"
-                ></div>
-              ))}
-            </div>
-          </div>
-
-          {/* Chart bars */}
-          <div className="ml-8 h-full flex items-end justify-between gap-4">
-            {data.map((item) => {
-              const incomeHeight = (item.income / maxValue) * 100;
-              const refundHeight = (item.refund / maxValue) * 100;
-
-              return (
-                <div key={item.month} className="flex flex-col items-center gap-2 flex-1 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex items-end gap-1 h-48">
-                    <div
-                      className="bg-[#414FF4] rounded-full w-6 relative group cursor-pointer transition-all duration-200 hover:bg-[#3542E8]"
-                      style={{ height: `${incomeHeight}%` }}
-                    >
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                        ${item.income}
-                      </div>
-                    </div>
-                    <div
-                      className="bg-[#B9CFF9] rounded-full w-6 relative group cursor-pointer transition-all duration-200 hover:bg-blue-400"
-                      style={{ height: `${refundHeight}%` }}
-                    >
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                        ${item.refund}
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {item.month}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+        <div className="w-full h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData} barCategoryGap={20} barSize={28}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} horizontal={true} stroke="#E5E7EB" />
+              <XAxis dataKey="label" tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
+              <YAxis
+                tickFormatter={formatAmount}
+                domain={[0, maxValue]}
+                ticks={yTicks}
+                tick={{ fontSize: 12 }}
+                axisLine={false} tickLine={false}
+              />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
+              <Bar dataKey="totalCheckout" name="Checkout" radius={[20, 20, 20, 20]}>
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-checkout-${index}`}
+                    fill={entry.isSelected ? '#414FF4' : '#E6E6E6'}
+                  />
+                ))}
+              </Bar>
+              <Bar dataKey="totalRefunded" name="Refund" radius={[20, 20, 20, 20]}>
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-refund-${index}`}
+                    fill={entry.isSelected ? '#B9CFF9' : '#F2F2F2'}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
