@@ -6,7 +6,6 @@
 
 ```bash
 git clone https://github.com/Arif6474/frontend-boomdevs-task.git
-cd monthly-sales-backend
 ```
 
 ### 2. Create `.env` File
