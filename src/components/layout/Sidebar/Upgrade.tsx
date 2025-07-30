@@ -2,7 +2,7 @@ import upgrade from "../../../assets/upgrade.svg"
 
 function Upgrade() {
     return (
-        <div className="p-2 m-4 bg-white dark:bg-gray-800 dark:to-gray-700 rounded-xl border border-blue-100 dark:border-gray-600">
+        <div className="p-2 m-4 bg-white dark:bg-gray-800 dark:to-gray-700 rounded-xl border border-gray-200">
             <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10  rounded-lg flex items-center justify-center">
                     <img src={upgrade} alt="" />

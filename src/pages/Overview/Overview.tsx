@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Filter, Search } from 'lucide-react';
+import { CircleDollarSign, TotalCustomerSign, TotalOrderSing, TotalSaleSign } from '../../components/elements/icons';
 import { StatsCard } from '../../components/ui/StatsCard';
 import { Chart } from '../../components/ui/Chart';
 import { ProductCard } from '../../components/ui/ProductCard';
 import { FilterPanel } from '../../components/ui/FilterPanel';
 import { Button } from '../../components/common/Button';
-import { statsData, chartData, productsData } from '../../utils/constants';
+import { chartData, productsData } from '../../utils/constants';
 import { DateRangeSelector } from './DateRangeSelector';
 import useMonthlyData from './utils/useMonthlyData';
+import ProductMonitoring from './ProductMonitoring';
 
 const formatDate = (date: string): string => {
   const formattedDate = new Date(date);
@@ -43,30 +45,40 @@ export default function Overview() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <StatsCard
+          icon={<CircleDollarSign />}
           title='Monthly Earnings'
-          value={data?.currentEarnings}
+          value={data?.currentEarnings ? `$${data?.currentEarnings}` : '$0'}
           percentageChange={data?.previousMonthComparison?.earningsPercentageChange}
-          beforeText='You earn extra'
-          difference={data?.previousMonthComparison?.earningsDifference}
+          beforeText={`Earnings ${data?.previousMonthComparison?.earningsPercentageChange > 0 ? 'increased' : 'decreased'} by`}
+          difference={`$${data?.previousMonthComparison?.earningsDifference ? data?.previousMonthComparison?.earningsDifference : 0}`}
           afterText='this month'
         />
         <StatsCard
+          icon={<TotalOrderSing />}
           title='Total Orders'
-          value={data?.currentOrders}
+          value={data?.currentOrders ? data?.currentOrders : 0}
           percentageChange={data?.previousMonthComparison.ordersPercentageChange}
-          difference={`You received ${data?.previousMonthComparison?.ordersDifference} more orders this month`}
+          beforeText={`Orders ${data?.previousMonthComparison?.ordersPercentageChange > 0 ? 'increased' : 'decreased'} by `}
+          difference={data?.previousMonthComparison?.ordersDifference ? data?.previousMonthComparison?.ordersDifference : 0}
+          afterText='more orders this month'
         />
         <StatsCard
+          icon={<TotalSaleSign />}
           title='Total Sales'
-          value={data?.currentSales}
+          value={data?.currentSales ? `$${data?.currentSales}` : '$0'}
           percentageChange={data?.previousMonthComparison.salesPercentageChange}
-          difference={`Sales revenue fell by $${data?.previousMonthComparison?.salesDifference} this month`}
+          beforeText={`Sales revenue ${data?.previousMonthComparison?.salesPercentageChange > 0 ? 'increased' : 'decreased'} by`}
+          difference={`$${data?.previousMonthComparison?.salesDifference ? data?.previousMonthComparison?.salesDifference : 0}`}
+          afterText='this month'
         />
         <StatsCard
+          icon={<TotalCustomerSign />}
           title='New Customers'
-          value={data?.currentCustomers}
+          value={data?.currentCustomers ? data?.currentCustomers : 0}
           percentageChange={data?.previousMonthComparison.customersPercentageChange}
-          difference={`Gained ${data?.previousMonthComparison?.customersDifference} new customers this month`}
+          beforeText='Gained'
+          difference={data?.previousMonthComparison?.ordersDifference}
+          afterText='new customers this month'
         />
 
 
@@ -94,33 +106,7 @@ export default function Overview() {
             </select>
           </div>
 
-          <div className="space-y-4">
-            {productsData.slice(0, 4).map((product, index) => (
-              <div key={product.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-sm font-medium text-gray-600 dark:text-gray-400">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-10 h-10 rounded-lg object-cover"
-                />
-                <div className="flex-1">
-                  <h4 className="font-medium text-gray-900 dark:text-white text-sm">
-                    {product.name}
-                  </h4>
-                </div>
-                <div className="text-right">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {product.orders > 0 ? `${product.orders} Orders` : '10 Orders'}
-                  </span>
-                </div>
-              </div>
-            ))}
-            <button className="w-full text-center text-sm text-[#414FF4] hover:text-[#3542E8] font-medium py-2">
-              view all details
-            </button>
-          </div>
+          <ProductMonitoring startDate={formatedStartDate} endDate={formatedEndDate} />
         </div>
       </div>
 
@@ -154,6 +140,10 @@ export default function Overview() {
               >
                 Filter
               </Button>
+              <FilterPanel
+                isOpen={isFilterOpen}
+                onClose={() => setIsFilterOpen(false)}
+              />
 
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <span>1 - 8 of 8 Results</span>
@@ -173,11 +163,6 @@ export default function Overview() {
           </div>
         </div>
       </div>
-
-      <FilterPanel
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-      />
     </div>
   );
 };

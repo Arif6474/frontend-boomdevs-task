@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { ChevronDown } from 'lucide-react';
+import { Calendar, ChevronDown } from 'lucide-react';
 import download from '../../assets/downloadIcon.svg';
 
 interface DateRangeSelectorProps {
@@ -20,7 +20,7 @@ export function DateRangeSelector({ startDate, endDate, setStartDate, setEndDate
   // Close the calendar if clicked outside
   const handleClickOutside = (e: MouseEvent) => {
     if (calendarRef.current && !calendarRef.current.contains(e.target as Node) &&
-        buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
+      buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
       setShowCalendar(false);
     }
   };
@@ -35,24 +35,43 @@ export function DateRangeSelector({ startDate, endDate, setStartDate, setEndDate
   const handleMonthChange = (date: Date) => {
     const currentMonth = date.getMonth();
     if (startDate && currentMonth !== new Date(startDate).getMonth()) {
-      // Reset the start and end date if the month is changed
       setStartDate('');
       setEndDate('');
     }
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-sm rounded-lg relative">
-      {/* Date Range Section */}
+    <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white dark:bg-gray-800 shadow-sm rounded-lg relative">
       <div className="flex items-center gap-4">
-        <button
-          ref={buttonRef}
-          onClick={() => setShowCalendar(!showCalendar)}
-          className="flex items-center gap-2 px-4 py-2 border rounded-md text-secondary hover:text-blue-800"
-        >
-          <span>Month</span>
-          <ChevronDown className="text-secondary/70 text-sm font-thin dark:text-gray-300 w-6 h-6" />
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            ref={buttonRef}
+            onClick={() => setShowCalendar(!showCalendar)}
+            className="flex items-center gap-2 px-4 py-2 border rounded-md text-secondary hover:text-blue-800 dark:text-white"
+          >
+            <Calendar className="text-secondary/70 text-sm font-thin dark:text-gray-300 w-6 h-6" />
+            <span>Month</span>
+            <ChevronDown className="text-secondary/70 text-sm font-thin dark:text-gray-300 w-6 h-6" />
+          </button>
+          {/* show selected date */}
+          {startDate && endDate && (
+            <div className=" flex items-center gap-2 text-sm text-secondary dark:text-white">
+              <p className='px-4 py-2 border rounded-md text-secondary dark:text-white'>
+                {new Date(startDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'long',
+                })}
+              </p>
+              <p>to</p>
+              <p className='px-4 py-2 border rounded-md text-secondary dark:text-white'>
+                {new Date(endDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'long',
+                })}
+              </p>
+            </div>
+          )}
+        </div>
 
         <span className="text-secondary dark:text-white">
           {/* Show calendar if showCalendar is true */}
