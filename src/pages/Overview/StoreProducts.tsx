@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { ProductCard } from '../../components/ui/ProductCard';
 import { FilterPanel } from '../../components/ui/FilterPanel';
 import { Button } from '../../components/common/Button';
 import { FilterIcon } from '../../components/elements/icons';
-import { useState } from 'react';
 import useTopProductsByShop from './utils/useTopProductsByShop';
 import ProductCardSkeleton from '../../components/ui/ProductCardSkeleton';
 import ShopMap from './ShopMap';

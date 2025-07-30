@@ -9,7 +9,7 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="relative rounded-xl overflow-hidden shadow-md group transition-all duration-200">
-      {/* Featured badge */}
+
       {product.isFeatured && (
         <div className="absolute top-3 right-3 z-10 flex items-center gap-1 px-3 py-1 text-xs font-medium text-white bg-secondary rounded-full">
           FEATURED
@@ -17,7 +17,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       )}
 
-      {/* Product image */}
       <div className="aspect-square overflow-hidden w-full h-[300px]">
         <img
           src={product.image}
@@ -26,7 +25,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
       </div>
 
-      {/* Glass effect bottom info */}
       <div className="absolute bottom-0 w-full bg-secondary/50 text-white p-4">
         <h3 className="text-sm font-medium">{product.name}</h3>
         <p className="text-lg font-bold">${product.salePrice.toLocaleString()}</p>
